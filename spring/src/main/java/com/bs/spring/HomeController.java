@@ -70,7 +70,7 @@ public class HomeController {
 	//bean으로 등록하는 범위를 벗어났기 때문에 찾을 수 없다
 	private Test test;
 	
-	@RequestMapping("/")
+	@RequestMapping("/test")
 	public String home() {
 //		System.out.println(a);
 //		System.out.println(b);

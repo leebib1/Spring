@@ -77,4 +77,14 @@
 	 
 	 <!-- 다른 xml 파일을 임포트해서 사용 가능 -->
 	 <!-- <beans:import resource=""/> -->
+	 
+	 
+	<!-- 	<beans:bean id="memberSerivce" 
+	class="com.bs.spring.member.model.service.MemberServiceImpl">
+		<beans:constructor-arg index="0" ref="sessionTemplate"/>
+		<beans:constructor-arg index="1" ref="memberDao"/>
+	</beans:bean> -->
+	
+	<!-- <beans:import resource=""/> -->
+	 
 </beans:beans>

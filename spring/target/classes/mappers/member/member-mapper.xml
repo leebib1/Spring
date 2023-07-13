@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+	<resultMap type="member" id="memberMap">
+		<result property="hobby" column="hobby" typeHandler="strArr"/>
+	</resultMap>
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER VALUES(#{userId},#{password},#{userName},#{gender},#{age},#{email}
+			,#{phone},#{address},#{hobby,typeHandler=strArr},DEFAULT)
+	</insert>
+	<select id="selectMember" parameterType="map" resultMap="memberMap">
+		SELECT * FROM MEMBER
+		<where>
+			<if test="userId!=null and userId!=''">
+				USERID=#{userId}
+			</if>
+			<!-- <if test="password!=null and password!=''">
+				AND PASSWORD=#{password}
+			</if> -->
+		</where>
+	</select>
+</mapper>

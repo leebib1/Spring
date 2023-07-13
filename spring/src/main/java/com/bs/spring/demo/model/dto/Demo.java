@@ -13,6 +13,6 @@ public class Demo {
 	private String devName;
 	private int devAge;
 	private String devGender;
-	private String devEmial;
+	private String devEmail;
 	private String[] devLang;
 }

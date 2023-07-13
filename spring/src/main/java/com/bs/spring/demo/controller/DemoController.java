@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,7 @@ public class DemoController {
 	@Autowired
 	private DemoService service;
 	
+	private static final Logger logger=LoggerFactory.getLogger(DemoController.class);
 	
 	@RequestMapping("/demo/demo.do")
 	public String demo() {
@@ -71,14 +74,17 @@ public class DemoController {
 	
 	@RequestMapping("/demo/demo1.do")
 	public void demo1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println(req);
-		System.out.println(res);
+//		System.out.println(req);
+//		System.out.println(res);
+		logger.debug("request : {}",req);
+		logger.debug("response : {}",res);
 		String devName=req.getParameter("devName");
 		int devAge=Integer.parseInt(req.getParameter("devAge"));
 		String devGender=req.getParameter("devGender");
 		String devEmail=req.getParameter("devEmail");
 		String[] devLang=req.getParameterValues("devLang");
-		System.out.println(devName+" "+devAge+" "+devGender+" "+devEmail);
+		//System.out.println(devName+" "+devAge+" "+devGender+" "+devEmail);
+		logger.debug(devName+" "+devAge+" "+devGender+" "+devEmail);
 		for(String l:devLang) {
 			System.out.println(l);
 		}

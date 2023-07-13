@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.bs.spring.member.model.dto.Member;
 import com.bs.spring.member.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/member") //공통되는 부분 작성해서 생략가능
 @SessionAttributes({"loginMember"}) //Model에서 해당하는 key를 갖는 값은 Session에 등록해준다.
+@Slf4j
 public class MemberController {
+	
 	@Autowired
 	private MemberService service;
 	
@@ -38,9 +44,11 @@ public class MemberController {
 	public String insertMember(Member m, Model model){
 		//패스워드 암호화 처리
 		String oriPwd=m.getPassword();
-		System.out.println(oriPwd);
+		//System.out.println(oriPwd);
+		log.debug(oriPwd);
 		String encodePwd=passwordEncoder.encode(oriPwd);
-		System.out.println(encodePwd);
+		//System.out.println(encodePwd);
+		log.debug(encodePwd);
 		m.setPassword(encodePwd);
 		int result=service.insertMember(m);
 		//System.out.println(result);
@@ -58,9 +66,11 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login.do")
-	public String loginMember(@RequestParam Map param, Model model,HttpSession session) {
+	public String loginMember(@RequestParam Map<String,String> param, Model model,HttpSession session) {
 		Member m=service.selectMember(param);
-		if(m!=null&&m.getPassword().equals(param.get("password"))) {
+		//암호화된 값을 비교하기 위해서 BCryptPasswordEncoder가 제공하는 메소드를 이용해야 한다.
+		if(passwordEncoder.matches(param.get("password"), m.getPassword())) {
+		//if(m!=null&&m.getPassword().equals(param.get("password"))) {
 			//session.setAttribute("loginMember", m);
 			//Model을 이용한 로그인 처리
 			model.addAttribute("loginMember",m);

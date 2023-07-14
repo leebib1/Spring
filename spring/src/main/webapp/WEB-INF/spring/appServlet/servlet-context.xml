@@ -86,5 +86,24 @@
 	</beans:bean> -->
 	
 	<!-- <beans:import resource=""/> -->
+	
+	<!-- interceptor 등록 -->	
+	<interceptors>
+		<interceptor>
+			<mapping path="/demo/*"/>
+			<exclude-mapping path="/demo/demo.go"/><!-- 예외할 매핑 주소를 작성 -->
+			<beans:bean class="com.bs.spring.common.interceptor.LoggerInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/demo/selectDemoAll.do"/>
+			<beans:ref bean="loginCheck"/>
+		</interceptor>
+		<!-- <interceptor>
+			<mapping path="/memo/memoList.do"/>
+			<beans:ref bean="adminCheck"/>
+		</interceptor> -->
+	</interceptors>
+	<!-- <beans:bean id="adminCheck" class="com.bs.spring.common.interceptor.AdminCheckInterceptor"/> -->
+	<beans:bean id="loginCheck" class="com.bs.spring.common.interceptor.LoginCheckInterceptor"/>
 	 
 </beans:beans>

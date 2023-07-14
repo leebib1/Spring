@@ -47,6 +47,12 @@
 						<li class="nav-item">
 							<a class="nav-link" href="${path }/demo/demo.do">ControllerTest</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="${path }/demo/selectDemoAll.do">Demo List</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="${path }/memo/memoList.do">메모 조회</a>
+						</li>
 					</ul>
 						<c:if test="${loginMember==null }">
 							<button class="btn btn-outline-success my-2 my-sm-0"

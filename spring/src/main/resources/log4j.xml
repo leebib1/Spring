@@ -5,12 +5,27 @@
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p : %l - %m%n" />
+			<!-- <param name="ConversionPattern" value="%-5p : %l - %m%n" /> -->
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p : [%l] -%m%n"/>
+		</layout>
+		<!-- <layout class="org.apache.log4j.SimpleLayout"/> -->
+		<!-- <layout class="org.apache.log4j.HTMLLayout"/> -->
+		<!-- <layout class="org.apache.log4j.xml.XMLLayout"/> -->
+	</appender>
+	<!-- file로 로그 출력하는 appender 등록 -->
+	<appender name="fileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="c:/logs/spring-log.log"/>
+		<param name="append" value="true"/><!-- 덮어쓰기 말고 추가되게 함 -->
+		<param name="datePattern" value="yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p : [%l] -%m%n"/>
 		</layout>
 	</appender>
 		<!-- Application Loggers -->
+	<!-- log 대상이 되는 것들을 logger에 등록할 수 있다  -->
 	<logger name="com.bs.spring">
 		<level value="debug" />
+		<appender-ref ref="fileAppender"/>
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

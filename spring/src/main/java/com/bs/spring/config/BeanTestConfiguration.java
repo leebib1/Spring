@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.annotation.Order;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.bs.spring.beantest.Animal;
 import com.bs.spring.beantest.Department;
@@ -16,6 +17,7 @@ import com.bs.spring.beantest.Employee;
 //POJO 클래스를 configuration으로 사용할 수 있다.
 //@Configuration 어노테이션을 이용한다.
 @Configuration
+@EnableWebMvc  //spring MVC 모델을 적용할 때 validator에 대한 설정을 적용하게 함
 //servlet-context.xml에 설정했던 것처럼 어노테이션으로도 기본 패키지를 지정할 수 있다.
 @ComponentScan(basePackages="com.bs.spring",
 	includeFilters= {@ComponentScan.Filter(type=FilterType.REGEX, pattern= {"com.bs.spring.include.*"})}, 

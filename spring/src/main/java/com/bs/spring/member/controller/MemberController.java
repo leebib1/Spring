@@ -4,12 +4,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,13 +36,16 @@ public class MemberController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping("/enrollMember.do")
-	public String enrollform() {
+	public String enrollform(@ModelAttribute("member")Member m) {
 		return "member/enrollMember";
 	}
 	
 	@RequestMapping(value="/insertMember.do", method=RequestMethod.POST)
 	//@PostMapping("/member/insertMember.do")
-	public String insertMember(Member m, Model model){
+	public String insertMember(@Validated Member m, BindingResult isResult, Model model){
+		if(isResult.hasErrors()) {
+			return "member/enrollMember";
+		}
 		//패스워드 암호화 처리
 		String oriPwd=m.getPassword();
 		//System.out.println(oriPwd);
@@ -84,6 +88,7 @@ public class MemberController {
 	
 	@RequestMapping("/logout.do")
 	public String logout(SessionStatus status) {
+		//if(1==1)throw new IllegalArgumentException("잘못된 접근입니다.");
 		if(!status.isComplete()) { //session이 끝났는지 아닌지
 			//SessionAttributes로 등록된 내용 삭제하기
 			//SessionStatus 객체 사용한다.

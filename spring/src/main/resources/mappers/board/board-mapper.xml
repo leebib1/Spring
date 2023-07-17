@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board">
+	<resultMap type="board" id="boardMap">
+		<association property="file" resultMap="attachMap"/>
+	</resultMap>
+	<select id="selectBoard" resultType="board">
+		SELECT * FROM BOARD
+	</select>
+	<select id="selectCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
+	<insert id="insertBoard" parameterType="board">
+		INSERT INTO BOARD(BOARDNO,BOARDTITLE,BOARDWRITER,BOARDCONTENT,BOARDDATE,BOARDREADCOUNT)
+		VALUES(SEQ_BOARDNO.NEXTVAL,#{boardTitle},#{boardWriter},#{boardContent},SYSDATE,0)
+	</insert>
+	<insert id="">
+		INSERT INTO ATTACHMENT(SEQ_ATTACHMENTNO.NEXTVAL,SEQ_BOARDNO.CULLVAL,#{originalFileName},#{renamedFileName},0,DEFAULT)
+	</insert>
+</mapper>

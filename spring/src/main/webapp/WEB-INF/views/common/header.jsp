@@ -53,6 +53,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="${path }/memo/memoList.do">메모 조회</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="${path }/board/boardList.do">게시판</a>
+						</li>
 					</ul>
 						<c:if test="${loginMember==null }">
 							<button class="btn btn-outline-success my-2 my-sm-0"

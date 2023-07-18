@@ -9,11 +9,14 @@ import com.bs.spring.board.model.dto.Attachment;
 import com.bs.spring.board.model.dto.Board;
 
 public interface BoardDao {
-	List<Board> selectBoardList(SqlSession session, Map<String,Object> param);
-	int selectBoardCount(SqlSession session);
-	
-	Board selectBoardContent(SqlSession session,int no);
 	
 	int insertBoard(SqlSession session, Board b);
+	
+	List<Board> selectBoardAll(SqlSession session, Map<String,Object> param);
+	
+	int selectBoardCount(SqlSession session);
+	
+	Board selectBoardByNo(SqlSession session, int no);
+	
 	int insertAttachment(SqlSession session, Attachment a);
-}
+}	

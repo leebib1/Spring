@@ -13,31 +13,37 @@ import com.bs.spring.board.model.dto.Board;
 public class BoardDaoImpl implements BoardDao {
 
 	@Override
-	public List<Board> selectBoardList(SqlSession session, Map<String,Object> param) {
-		int cPage=(int)param.get("cPage");
-		int numPerpage=(int)param.get("numPerpage");
-		RowBounds rb=new RowBounds((cPage-1)*numPerpage, numPerpage);
-		return session.selectList("board.selectBoard",null,rb);
-	}
-
-	@Override
 	public int insertBoard(SqlSession session, Board b) {
 		return session.insert("board.insertBoard",b);
 	}
 
 	@Override
-	public int insertAttachment(SqlSession session, Attachment a) {
-		return session.insert("board.insertAttach",a);
+	public List<Board> selectBoardAll(SqlSession session, Map<String, Object> param) {
+		int cPage=(int)param.get("cPage");
+		int numPerpage=(int)param.get("numPerpage");
+		RowBounds rb=new RowBounds((cPage-1)*numPerpage,numPerpage);
+		
+		return session.selectList("board.selectBoardAll",null,rb);
 	}
 
 	@Override
 	public int selectBoardCount(SqlSession session) {
-		return session.selectOne("board.selectCount");
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectBoardCount");
 	}
 
 	@Override
-	public Board selectBoardContent(SqlSession session, int no) {
-		return session.selectOne("board.selectBoardContent",no);
+	public Board selectBoardByNo(SqlSession session, int no) {
+		return session.selectOne("board.selectBoardByNo",no);
 	}
 
+	@Override
+	public int insertAttachment(SqlSession session, Attachment a) {
+		return session.insert("board.insertAttachment",a);
+	}
+
+	
+	
+	
+	
 }

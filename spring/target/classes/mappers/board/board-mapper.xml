@@ -4,17 +4,22 @@
 	<resultMap type="board" id="boardMap">
 		<association property="file" resultMap="attachMap"/>
 	</resultMap>
-	<select id="selectBoard" resultType="board">
-		SELECT * FROM BOARD
+	<select id="selectBoardAll" resultType="board">
+		SELECT * FROM BOARD ORDER BY BOARDDATE DESC
 	</select>
-	<select id="selectCount" resultType="_int">
+	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD
 	</select>
+	<select id="selectBoardByNo" parameterType="_int" resultType="board">
+		SELECT * FROM BOARD WHERE BOARDNO=#{no}
+	</select>
 	<insert id="insertBoard" parameterType="board">
-		INSERT INTO BOARD(BOARDNO,BOARDTITLE,BOARDWRITER,BOARDCONTENT,BOARDDATE,BOARDREADCOUNT)
-		VALUES(SEQ_BOARDNO.NEXTVAL,#{boardTitle},#{boardWriter},#{boardContent},SYSDATE,0)
+		INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL,#{boardTitle}, #{boardWriter},#{boardContent},default,default)
+		<selectKey keyProperty="boardNo" resultType="_int" order="AFTER">
+			SELECT SEQ_BOARDNO.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
-	<insert id="">
-		INSERT INTO ATTACHMENT(SEQ_ATTACHMENTNO.NEXTVAL,SEQ_BOARDNO.CULLVAL,#{originalFileName},#{renamedFileName},0,DEFAULT)
+	<insert id="insertAttachment" parameterType="attachment">
+		INSERT INTO ATTACHMENT VALUES(SEQ_ATTACHMENTNO.NEXTVAL,#{boardNo}, #{originalFilename},#{renamedFilename},default,default,default)
 	</insert>
 </mapper>

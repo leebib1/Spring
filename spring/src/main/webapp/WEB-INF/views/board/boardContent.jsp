@@ -1,24 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value="게시판"/>
+	<jsp:param name="title" value="게시글 상세화면"/>
 </jsp:include>
 <div id="board-container">
-	<input type="text" class="form-control" placeholder="제목"
-		name="boardTitle" id="boardTitle" required value="${board.boardTitles }">
-	<input type="text" class="form-control" name="boardWriter" readonly required
-		value="${board.boardWriter }">
+     <input type="text" class="form-control" placeholder="제목" 
+     name="boardTitle" id="boardTitle"  value="${board.boardTitle }" required>
+     <input type="text" class="form-control" name="boardWriter" 
+     value="${board.boardWriter }" readonly required>
 
-	<button type="button" class="btn btn-outline-success btn-block"
-		onclick=""></button>
-
-
-	<textarea class="form-control" name="boardContent" placeholder="내용"
-		required>${board.boardContent }</textarea>
+                 <button type="button" 
+                 class="btn btn-outline-success btn-block"
+                 onclick="">
+         </button>
+     
+     
+     <textarea class="form-control" name="boardContent" placeholder="내용" required>${board.boardContent }</textarea>
 </div>
 
 <style>

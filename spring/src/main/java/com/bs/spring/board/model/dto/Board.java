@@ -1,6 +1,8 @@
 package com.bs.spring.board.model.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -23,4 +25,5 @@ public class Board {
 	private Date boardDate;
 	private int boardReadCount;
 	//private Attachment file;
+	private List<Attachment> file=new ArrayList();
 }

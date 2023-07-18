@@ -15,10 +15,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 			throws Exception {
 		HttpSession session=request.getSession();
 		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember!=null) {
+		if(loginMember==null) {
 			request.setAttribute("msg", "로그인 후 이용할 수 있습니다.");
 			request.setAttribute("loc", "/");
-			request.getRequestDispatcher("/WEB-INF/views/common/msg/jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 			return false;
 		}
 		return true;

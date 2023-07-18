@@ -11,7 +11,7 @@
         <form name="boardFrm" action="${path }/board/insertBoard.do" 
         method="post" enctype="multipart/form-data" >
             <input type="text" class="form-control" placeholder="제목" name="boardTitle" id="boardTitle" required>
-            <input type="text" class="form-control" placeholder="아이디 (4글자이상)" name="boardWriter" 
+            <input type="text" class="form-control" placeholder="아이디 (4글자이상)" name="writer" 
             value="${loginMember.userId}" readonly required>
             <div class="input-group mb-3" style="padding:0px;">
                 <div class="input-group-prepend" style="padding:0px;">

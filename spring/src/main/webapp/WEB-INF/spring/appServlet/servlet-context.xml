@@ -102,6 +102,10 @@
 			<mapping path="/memo/memoList.do"/>
 			<beans:ref bean="adminCheck"/>
 		</interceptor> -->
+		<interceptor>
+			<mapping path="/board/*"/>
+			<beans:ref bean="loginCheck"/>
+		</interceptor>
 	</interceptors>
 	<!-- <beans:bean id="adminCheck" class="com.bs.spring.common.interceptor.AdminCheckInterceptor"/> -->
 	<beans:bean id="loginCheck" class="com.bs.spring.common.interceptor.LoginCheckInterceptor"/>

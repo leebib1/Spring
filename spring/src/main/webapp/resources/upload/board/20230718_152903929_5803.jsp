@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value="게시판"/>
+	<jsp:param name="title" value="게시판 리스트"/>
 </jsp:include>
 <section id="board-container" class="container">
         <p>총 ${totalData }건의 게시물이 있습니다.</p>
-        <button class="btn btn-outline-primary" onclick="location.assign('${path}/board/boardWrite.do')">글쓰기</button>
+        <button class="btn btn-outline-primary" 
+        onclick="location.assign('${path}/board/boardForm.do')">글쓰기</button>
         <table id="tbl-board" class="table table-striped table-hover">
             <tr>
                 <th>번호</th>
@@ -19,23 +19,18 @@
                 <th>첨부파일</th>
                 <th>조회수</th>
             </tr>
-              <c:if test="${not empty boards}">
+            <c:if test="${not empty boards}">
             	<c:forEach var="b" items="${boards }">
             		<tr>
             			<td>${b.boardNo }</td>
             			<td>
-            			<a href="${path }/board/boardContent.do?no=${b.boardNo}">
+            			<a href="${path }/board/boardView.do?no=${b.boardNo}">
             				${b.boardTitle }
             			</a>
             			</td>
-            			<td>${b.boardWriter.userName }</td>
+            			<td>${b.boardWriter }</td>
             			<td>${b.boardDate }</td>
-            			<td>
-            				<c:if test="${b.file.size()>0&&b.file.get(0).originalFilename!=null }">
-            					<img src="${path}/resources/images/file.png">
-            					<span>${b.file.size()}</span>
-            				</c:if>
-            			</td>
+            			<td></td>
             			<td>${b.boardReadCount }</td>            			
             		</tr>
             	</c:forEach>
@@ -44,4 +39,7 @@
         <div id="pageBar">
         	<c:out value="${pageBar }" escapeXml="false"/>
         </div>
+</section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+

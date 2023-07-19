@@ -21,8 +21,18 @@
 		<property name="password" value="spring"/> 	
 	 </bean>
 	 
+	 <bean id="proxyDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+	 	<constructor-arg index="0" ref="dataSource"/>
+	 	<property name="logFormatter">
+	 		<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+	 			<property name="loggingType" value="MULTI_LINE"/>
+	 			<property name="sqlPrefix" value="[SQL]"/>
+	 		</bean>
+	 	</property>
+	 </bean>
+	 
 	 <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	 	<property name="dataSource" ref="dataSource"/>
+	 	<property name="dataSource" ref="proxyDataSource"/>
 	 	<property name="configLocation" value="classpath:mybatis-config.xml"/>
 	 	<property name="mapperLocations" value="classpath:mappers/**/*.xml"/>
 	 </bean>
@@ -30,4 +40,27 @@
 	 <bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 	 	<constructor-arg index="0" ref="sessionFactory"/>
 	 </bean>
+	 
+	 <!-- 트랜잭션 bean 설정 
+	 	DataSourceTransactionManager 클래스를 bean으로 먼저 등록한다.
+	 	1. 어노테이션 방식으로 설정하기
+	 	<tx:annotation-driven>태그를 설정한다.
+	 -->
+	 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	 	<property name="dataSource" ref="proxyDataSource"/>
+	 </bean>
+	 <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+	 <!-- 2.xml 방식으로 선언 -->
+	 <tx:advice id="txadvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut expression="within(com.bs.spring..*ServiceImpl)" id="transpo"/>
+		<aop:advisor advice-ref="txadvice" pointcut-ref="transpo"/>
+	</aop:config>
+	 
+	 
+	 
 </beans>

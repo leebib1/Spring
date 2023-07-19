@@ -1,5 +1,6 @@
 package com.bs.spring.member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.websocket.Session;
@@ -19,6 +20,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member selectMember(SqlSession session,Map param) {
 		return session.selectOne("member.selectMember",param);
+	}
+
+	@Override
+	public List<Member> selectMemberAll(SqlSession session) {
+		return session.selectList("member.selectMemberAll");
 	}
 
 }

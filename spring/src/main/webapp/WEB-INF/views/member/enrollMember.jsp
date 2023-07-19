@@ -44,6 +44,8 @@
 			</form> --%>
 	<springform:form modelAttribute="member" name="memberEnrollFrm" method="post" action="${path }/member/insertMember.do">
 				<springform:input path="userId" type="text" class="form-control" placeholder="아이디 (4글자이상)" name="userId" id="userId_"/>
+				<button type="button" class="btn btn-outline-primary" onclick="fn_idDuplicate();">중복 확인</button>
+				<span id="result"></span>
 				<springform:errors path="userId" cssClass="error" />
 				<springform:input path="password" type="password" class="form-control" placeholder="비밀번호" name="password" id="password_"/>
 				<springform:errors path="password" cssClass="error"/>
@@ -75,4 +77,22 @@
 				<input type="reset" class="btn btn-outline-success" value="취소">
 			</springform:form>
 		</div>
+<script>
+	const fn_idDuplicate=()=>{
+		const userId=$("#userId_").val();
+		if(userId.trim().length>=4){
+			$.post("${path}/ajax/idDuplicate",{"userId":userId},data=>{
+				//console.log(data);
+				if(data.length!=0){
+					$("#result").text("중복된 아이디입니다.").css("color","red");
+					$("#userId_").val("");
+				}else{
+					$("#result").text("사용 가능한 아이디입니다.").css("color","green");
+				}
+			});
+		}else{
+			alert("아이디는 4글자 이상 입력하세요.");
+		}
+	}
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

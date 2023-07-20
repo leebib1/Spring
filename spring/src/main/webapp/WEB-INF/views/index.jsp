@@ -27,8 +27,8 @@
 				data=>{
 					console.log(data);
 				}); */
-		/* const data={userId:"test1",password:"test",userName:"테스트",age:19,gender:"M"};
-		$.ajax({
+		const data={userId:"test1",password:"test",userName:"테스트",age:19,gender:"M"};
+		/* $.ajax({
 			url:"${pageContext.request.contextPath}/ajax/insertData.do",
 			type:"post",
 			data:JSON.stringify(data),
@@ -38,8 +38,42 @@
 			}
 		}); */
 		
-		//js가 제공하는 fetch함수
+		//js가 제공하는 fetch함수 
+		//fetch는 다른 라이브러리 필요 없이 사용 가능하다.
+		//비동기식 통신이라 callback 처리 되어있다.
+		//fetch("url",{요청에 대한 옵션 정보}) //Promise 객체를 반환. 옵션 정보 생략시 get방식으로 요청이 넘어간다
+		// .then(response=>{response.json()}) //응답 내용 파싱
+		// .then(data=>{처리 로직}) //success함수 역할
+		/* fetch("${pageContext.request.contextPath}/ajax/memberAll.do",{
+			method:"get",
+			//headers:{} ->contentType 등 헤더 옵션을 보낼 수 있다
+			//body:JSON.stringify(객체) ->전송할 객체를 보낼 수 있다.
+		}).then(response=>{
+			console.log(response);
+			if(!response.ok) throw new Error("요청실패");
+			return response.json();
+			})
+		.then(data=>{console.log(data)})
+		.catch(e=>{
+			alert(e);
+		}); */
 		
+		fetch("${pageContext.request.contextPath}/ajax/insertData.do",{
+			method:"post",
+			header:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify(data)
+		}).then(response=>{
+			console.log(data);
+			if(!response.ok) new Error("");
+			return response.json();
+			//일반문자를 반환하는 경우 response.text() 사용
+		}).then(data=>{
+			console.log(data);
+		}).catch(e=>{
+			//error 발생 시 실행 로직
+		});
 		
 	}
 	const basicAjax=()=>{
@@ -64,7 +98,7 @@
 	}
 	
 	const fn_memberAll=()=>{
-		$.get("${pageContext.request.contextPath}/ajax/selectMemberAll",data=>{
+		$.get("${pageContext.request.contextPath}/ajax/memberAll.do",data=>{
 			console.log(data);
 			const table=$("<table>").attr("class","table");
 			const header=["아이디","이름","나이","성별","이메일","전화번호","주소","취미","가입일"];

@@ -68,6 +68,7 @@
 						</c:if>
 						<c:if test="${loginMember!=null }">
 							<a href="${path }/member/mypage.do"><c:out value="${loginMember.userName }"/></a>님 환영합니다.
+							<button class="btn btn-outline-primary my-2 my-sm-0" onclick="chattingOpen();">채팅</button>
 							<button class="btn btn-outline-success my-2 my-sm-0"
 							onclick="location.replace('${path}/member/logout.do')">로그아웃</button>
 						</c:if>
@@ -102,6 +103,9 @@
 			</div>
 		</div>
 <script>
+	const chattingOpen=()=>{
+		open("${path}/chattingpage","_blank","width=400,height=500");
+	}
 	const fn_enrollMember=()=>{
 		location.assign("${path}/member/enrollMember.do");
 	}

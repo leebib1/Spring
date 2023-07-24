@@ -40,9 +40,10 @@ public class MemberController {
 		return "member/enrollMember";
 	}
 	
-	@RequestMapping(value="/insertMember.do", method=RequestMethod.POST)
-	//@PostMapping("/member/insertMember.do")
+	//@RequestMapping(value="/insertMember.do", method=RequestMethod.POST)
+	@PostMapping("/insertMember.do")
 	public String insertMember(@Validated Member m, BindingResult isResult, Model model){
+		log.info("insertMember 메소드 실행");
 		if(isResult.hasErrors()) {
 			return "member/enrollMember";
 		}
@@ -101,4 +102,6 @@ public class MemberController {
 	public String mypage() {
 		return "member/mypage";
 	}
+	
+	
 }

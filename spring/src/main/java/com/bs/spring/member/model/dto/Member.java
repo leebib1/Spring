@@ -48,9 +48,14 @@ public class Member implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		//로그인한 사용자의 권한을 설정하는 메소드
 		List<GrantedAuthority> auth=new ArrayList();
-		auth.add(new SimpleGrantedAuthority("ROLL_USER")); //로그인하면 ROLL_USER권한이 부여된다.
+		//auth.add(new SimpleGrantedAuthority("ROLL_USER")); //로그인하면 ROLL_USER권한이 부여된다.
+		auth.add(new SimpleGrantedAuthority("user"));
 		if(userId.equals("admin")) {
-			auth.add(new SimpleGrantedAuthority("ROLL_ADMIN")); //관리자 계정이면 관리자 권한을 추가
+			//auth.add(new SimpleGrantedAuthority("ROLL_ADMIN")); //관리자 계정이면 관리자 권한을 추가
+			auth.add(new SimpleGrantedAuthority("admin"));
+		}else if(userId.equals("manager")) {
+			//auth.add(new SimpleGrantedAuthority("ROLL_MGR"));
+			auth.add(new SimpleGrantedAuthority("manager"));
 		}
 		return auth;
 	}

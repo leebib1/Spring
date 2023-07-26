@@ -51,8 +51,10 @@
       	 <security:intercept-url pattern="/member/enrollMember.do" access="permitAll()"/>
       	 <security:intercept-url pattern="/member/insertMember.do" access="permitAll()"/>
       	 <security:intercept-url pattern="/logoutsuccess" access="permitAll()"/>
-      	 <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-      	 <security:intercept-url pattern="/member/*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+      	<!--  <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+      	 <security:intercept-url pattern="/member/*" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/> -->
+      	 <security:intercept-url pattern="/admin/**" access="hasAuthority('admin')"/>
+      	 <security:intercept-url pattern="/admin/**" access="hasAnyAuthority('admin','manager')"/>
       	 
       	 <!-- 로그아웃에 대한 설정
       	 	security:logout 태그 이용

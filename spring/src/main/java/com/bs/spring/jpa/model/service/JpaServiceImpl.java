@@ -22,5 +22,30 @@ public class JpaServiceImpl implements JpaService {
 		dao.basicTest(em);
 		et.commit(); //트랜잭션 종료
 	}
-
+	@Override
+	public void manyToOne() {
+		EntityTransaction et=em.getTransaction();
+		et.begin();
+		dao.manyToOne(em);
+		et.commit();
+		//em.clear(); //영속성 컨텍스트 지우기
+		dao.boardById(em, 1);
+	}
+	@Override
+	public void insertStudent() {
+		EntityTransaction et=em.getTransaction();
+		et.begin();
+		dao.insertStudent(em);
+		et.commit();
+		em.clear();
+		dao.selectStudentId(em,1L);
+	}
+	@Override
+	public void deleteStudent(long no) {
+		EntityTransaction et=em.getTransaction();
+		et.begin();
+		dao.deleteStudent(em, no);
+		et.commit();
+	}
+	
 }

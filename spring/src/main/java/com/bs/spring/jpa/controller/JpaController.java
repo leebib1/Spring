@@ -22,4 +22,22 @@ public class JpaController {
 		service.basicTest();
 		return "redirect:/";
 	}
+	
+	@GetMapping("/manytoone.do")
+	public String manytoone() {
+		service.manyToOne();
+		return "redirect:/";
+	}
+	
+	@GetMapping("/oneToOne.do")
+	public String oneToOne() {
+		service.insertStudent();
+		return "redirect:/";
+	}
+	
+	@GetMapping("/entitydelete.do")
+	public String deleteStudent(long no) {
+		service.deleteStudent(no);
+		return "redirect:/";
+	}
 }

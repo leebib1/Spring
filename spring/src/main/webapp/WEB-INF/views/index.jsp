@@ -132,7 +132,9 @@
 	<h1>JPA 테스트</h1>
 	<h3><a href="${pageContext.request.contextPath }/jpa/basictest.do">기본 EntityManager 이용</a></h3>
 	
-	
-	
+	<h2>JPA</h2>
+	<h3><a href="${pageContext.request.contextPath }/jpa/manytoone.do">ManyToOne 관계 설정</a></h3>
+	<h3><a href="${pageContext.request.contextPath }/jpa/oneToOne.do">OneToOne 관계 설정</a></h3>
+	<h3><a href="${pageContext.request.contextPath }/jpa/entitydelete.do?no=1">student 삭제</a></h3>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -18,7 +18,7 @@
 				create, create-drop, update, validate, none
 				update : 테이블, 제약조건 등에 대한 변경 사항을 인지해서 업데이트
 			 -->
-			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			<property name="hibernate.hbm2ddl.auto" value="updateS"/>
 		</properties>
 	</persistence-unit>
 </persistence>

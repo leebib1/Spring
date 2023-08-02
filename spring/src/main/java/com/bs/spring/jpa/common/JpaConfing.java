@@ -20,8 +20,8 @@ public class JpaConfing {
 		return factory;
 	}
 	
-	@Bean
-	public EntityManager entityManager() {
-		return entityManagerFactory().createEntityManager();
-	}
+//	@Bean
+//	public EntityManager entityManager() {
+//		return entityManagerFactory().createEntityManager();
+//	}
 }

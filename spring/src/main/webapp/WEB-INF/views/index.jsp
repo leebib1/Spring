@@ -136,5 +136,13 @@
 	<h3><a href="${pageContext.request.contextPath }/jpa/manytoone.do">ManyToOne 관계 설정</a></h3>
 	<h3><a href="${pageContext.request.contextPath }/jpa/oneToOne.do">OneToOne 관계 설정</a></h3>
 	<h3><a href="${pageContext.request.contextPath }/jpa/entitydelete.do?no=1">student 삭제</a></h3>
+	<h3>entity 수정</h3>
+	<form action="${pageContext.request.contextPath }/jpa/updatestudent.do" method="post">
+		학생 번호 <input type="text" name="no"><br>
+		학생 이름 <input type="text" name="name"><br>
+		학생 학년 <input type="number" name="grade"><br>
+		<input type="submit" value="변경">
+	</form>
+	<h3><a href="${pageContext.request.contextPath }/jpa/insertClub.do">CA 추가</a></h3>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -1,10 +1,11 @@
 package com.bs.spring.jpa.model.dao;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -14,8 +15,10 @@ import com.bs.spring.jpa.common.Level;
 import com.bs.spring.jpa.common.Role;
 import com.bs.spring.jpa.entity.Address;
 import com.bs.spring.jpa.entity.BoardEntity;
+import com.bs.spring.jpa.entity.Club;
 import com.bs.spring.jpa.entity.JpaMember;
 import com.bs.spring.jpa.entity.LockerEntity;
+import com.bs.spring.jpa.entity.StudentClubs;
 import com.bs.spring.jpa.entity.StudentEntity;
 @Repository
 public class JpaDaoImpl implements JpaDao {
@@ -100,7 +103,8 @@ public class JpaDaoImpl implements JpaDao {
 	public void insertStudent(EntityManager em) {
 		StudentEntity s=StudentEntity.builder().studentNo(1)
 				.studentName("유병승").grade(1).classNumber(3).build();
-		LockerEntity l=LockerEntity.builder().lockerNo(1).lockerPosition("3층").lockerColor("파랑").build();
+		LockerEntity l=LockerEntity.builder().lockerPosition("3층").lockerColor("파랑").build();
+		em.persist(l);
 		s.setMylocker(l);
 		em.persist(s);
 		
@@ -116,8 +120,46 @@ public class JpaDaoImpl implements JpaDao {
 
 	@Override
 	public void deleteStudent(EntityManager em, long no) {
-		em.remove(em.find(LockerEntity.class, no));
+		em.remove(em.find(StudentEntity.class, no));
 		
+	}
+
+	@Override
+	public void updateStudent(EntityManager em, Map<String, Object> param) {
+		StudentEntity student=em.find(StudentEntity.class, Long.parseLong((String)param.get("no")));
+		student.setStudentName((String)param.get("name"));
+		//영속성 컨텍스트에 있는 데이터를 setter를 이용해서 값을 변경하면 DB랑 연결돼서 값이 수정된다. ->UPDATE문을 실행
+		student.setGrade(Integer.parseInt((String)param.get("grade")));
+	}
+
+	@Override
+	public void insertClub(EntityManager em) {
+		Club c=Club.builder().clubNo(1).clubName("낚시").location("안양천").build();
+		Club c1=Club.builder().clubNo(2).clubName("등산").location("남산").build();
+		Club c2=Club.builder().clubNo(3).clubName("컴퓨터").location("정보화교육실").build();
+		Club c3=Club.builder().clubNo(4).clubName("축구").location("운동장").build();
+		StudentEntity s=StudentEntity.builder().studentNo(1).studentName("유병승").grade(1).classNumber(3).build();
+		StudentEntity s1=StudentEntity.builder().studentNo(2).studentName("강민기").grade(1).classNumber(3).build();
+		StudentEntity s2=StudentEntity.builder().studentNo(3).studentName("이은지").grade(1).classNumber(3).build();
+		
+		StudentClubs sc=StudentClubs.builder().student(s).club(c).enrollDate(new Date()).build();
+//		s.setClubs(new ArrayList<>());
+//		s.getClubs().add(c1);
+//		s.getClubs().add(c3);
+		
+//		s1.setClubs(new ArrayList<>());
+//		s1.getClubs().add(c);
+//		s1.getClubs().add(c2);
+		
+//		s2.setClubs(new ArrayList<>());
+//		s2.getClubs().add(c);
+//		s2.getClubs().add(c1);
+//		s2.getClubs().add(c2);
+//		s2.getClubs().add(c3);
+		
+		em.persist(s);
+		em.persist(s1);
+		em.persist(s2);
 	}
 	
 

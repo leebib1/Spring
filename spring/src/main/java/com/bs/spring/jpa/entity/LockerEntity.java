@@ -1,9 +1,11 @@
 package com.bs.spring.jpa.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
@@ -23,4 +25,8 @@ public class LockerEntity {
 	private long lockerNo;
 	private String lockerPosition;
 	private String lockerColor;
+	
+	//@OneToOne(mappedBy="mylocker",cascade=CascadeType.REMOVE)
+	//locker가 삭제되면 studentNo도 삭제
+//	private long studentNo;
 }

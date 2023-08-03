@@ -18,7 +18,24 @@
 				create, create-drop, update, validate, none
 				update : 테이블, 제약조건 등에 대한 변경 사항을 인지해서 업데이트
 			 -->
-			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			<property name="hibernate.hbm2ddl.auto" value="none"/>
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="web">
+		<properties>
+			<!-- DB 연결 설정 -->
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+			<property name="javax.persistence.jdbc.user" value="web"/>
+			<property name="javax.persistence.jdbc.password" value="web"/>
+			<!-- DB 방언 설정 -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+			<!-- hibernate log 설정 -->
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.use_sql_comments" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="none"/>
 		</properties>
 	</persistence-unit>
 </persistence>

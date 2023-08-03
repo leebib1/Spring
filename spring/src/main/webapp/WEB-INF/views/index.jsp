@@ -145,4 +145,18 @@
 	</form>
 	<h3><a href="${pageContext.request.contextPath }/jpa/insertClub.do">CA 추가</a></h3>
 	
+	<h2>web 계정 테이블 조회하기</h2>
+	<h3><button onclick="getMembers();">전체 회원 가져오기</button></h3>
+	<h3><input type="text" id="name"><button onclick="searchMemberName();">이름 검색</button></h3>
+	<script>
+		function getMembers(){
+			$.get("${pageContext.request.contextPath}/web/members/"+name,data=>{
+				console.log(data);
+			});
+		}
+		function searchMemberName(){
+			const name=$("#name").val();
+			$.get("${pageContext.request.contextPath}/web/memebrs/"+name)
+		}
+	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
